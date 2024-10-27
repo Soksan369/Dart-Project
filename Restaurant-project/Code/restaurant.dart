@@ -1,3 +1,11 @@
+enum MenuItem {
+  Pizza,
+  Burger,
+  Pasta,
+  FrenchFries,
+  Salad,
+  Drink
+}
 class Customer {
   String customerID;
   String name;
@@ -15,17 +23,17 @@ class Customer {
 }
 
 class Menu {
-  List<String> items = [];
+  List<MenuItem> items = [];
 
-  void addItem(String item) {
+  void addItem(MenuItem item) {
     items.add(item);
   }
 
-  void removeItem(String item) {
+  void removeItem(MenuItem item) {
     items.remove(item);
   }
 
-  String getItem(int index) {
+  MenuItem getItem(int index) {
     return items[index];
   }
 }
@@ -33,19 +41,19 @@ class Menu {
 class Order {
   String orderID;
   Customer customer;
-  List<Menu> items = [];
+  List<MenuItem> items = [];
   double totalPrice = 0.0;
   String orderStatus;
   String paymentStatus;
 
   Order(this.orderID, this.customer, this.orderStatus, this.paymentStatus);
 
-  void addItem(Menu item) {
+  void addItem(MenuItem item) {
     items.add(item);
     calculateTotal();
   }
 
-  void removeItem(Menu item) {
+  void removeItem(MenuItem item) {
     items.remove(item);
     calculateTotal();
   }
@@ -80,13 +88,13 @@ class TableReservation {
 
 void main() {
   // Example usage
-  Customer customer = Customer('C001', 'John Doe', '123-456-7890');
+  Customer customer = Customer('C001', 'Pen Sithol', '070-458-409');
   Menu menu = Menu();
-  menu.addItem('Pizza');
-  menu.addItem('Burger');
+  menu.addItem(MenuItem.Burger);
+  menu.addItem(MenuItem.Drink);
 
   Order order = Order('O001', customer, 'Pending', 'Unpaid');
-  order.addItem(menu);
+  order.addItem(MenuItem.Burger);
   order.calculateTotal();
 
   TableReservation reservation = TableReservation('R001', customer, 5, DateTime.now(), false);

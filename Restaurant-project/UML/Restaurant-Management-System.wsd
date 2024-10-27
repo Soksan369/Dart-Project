@@ -1,5 +1,13 @@
 @startuml
 
+enum MenuItem {
+  Pizza
+  Burger
+  Pasta
+  Salad
+  Drink
+}
+
 class Customer {
   -customerID: String
   -name: String
@@ -9,19 +17,19 @@ class Customer {
 }
 
 class Menu {
-  -items: List<String>
-  +addItem(item: String): void
-  +removeItem(item: String): void
-  +getItem(index: int): String
+  -items: List<MenuItem>
+  +addItem(item: MenuItem): void
+  +removeItem(item: MenuItem): void
+  +getItem(index: int): MenuItem
 }
 
 class Order {
   -orderID: String
   -customer: Customer
-  -items: List<Menu>
+  -items: List<MenuItem>
   -totalPrice: double
-  +addItem(item: Menu): void
-  +removeItem(item: Menu): void
+  +addItem(item: MenuItem): void
+  +removeItem(item: MenuItem): void
   +calculateTotal(): double
 }
 
@@ -37,7 +45,7 @@ class TableReservation {
 
 Customer "1" -- "0..*" Order: places
 Customer "1" -- "0..*" TableReservation: makes
-Order "0..*" -- "0..*" Menu: contains
+Order "0..*" -- "0..*" MenuItem: contains
 TableReservation "1" -- "1" Customer: associated with
 
 @enduml
