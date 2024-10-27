@@ -1,0 +1,43 @@
+@startuml
+
+class Customer {
+  -customerID: String
+  -name: String
+  -contactDetails: String
+  +placeOrder(): void
+  +reserveTable(): void
+}
+
+class Menu {
+  -items: List<String>
+  +addItem(item: String): void
+  +removeItem(item: String): void
+  +getItem(index: int): String
+}
+
+class Order {
+  -orderID: String
+  -customer: Customer
+  -items: List<Menu>
+  -totalPrice: double
+  +addItem(item: Menu): void
+  +removeItem(item: Menu): void
+  +calculateTotal(): double
+}
+
+class TableReservation {
+  -reservationID: String
+  -customer: Customer
+  -tableNumber: int
+  -reservationTime: Date
+  +reserveTable(): void
+  +cancelReservation(): void
+  +getReservationDetails(): String
+}
+
+Customer "1" -- "0..*" Order: places
+Customer "1" -- "0..*" TableReservation: makes
+Order "0..*" -- "0..*" Menu: contains
+TableReservation "1" -- "1" Customer: associated with
+
+@enduml
