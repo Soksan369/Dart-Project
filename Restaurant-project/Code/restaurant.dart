@@ -15,6 +15,7 @@ class Customer {
 
   void placeOrder(Order order) {
     // Implementation for placing an order
+    
   }
 
   void reserveTable(TableReservation reservation) {

@@ -1,0 +1,50 @@
+@startuml
+class Customer {
+  int customerID
+  String name
+  String email
+  String phone
+  + placeOrder(Order order)
+  + reserveTable(TableReservation reservation)
+}
+
+class Menu {
+  int menuID
+  String itemName
+  String itemDescription
+  double price
+  + addItem(Menu item)
+  + removeItem(int menuID)
+  + getMenuItems() : List<Menu>
+}
+
+class Order {
+  int orderID
+  int customerID
+  DateTime orderDate
+  double totalAmount
+  String orderStatus
+  String paymentStatus
+  List<Menu> items
+  + calculateTotal()
+  + addItem(Menu item)
+  + removeItem(int menuID)
+  + updateOrderStatus(String status)
+  + updatePaymentStatus(String status)
+}
+
+class TableReservation {
+  int reservationID
+  int customerID
+  int tableNumber
+  DateTime reservationTime
+  bool isReserved
+  + reserve(TableReservation reservation)
+  + cancel(int reservationID)
+  + isTableAvailable(int tableNumber, DateTime time) : bool
+}
+
+Customer "1" -- "0..*" Order : places
+Customer "1" -- "0..*" TableReservation : makes
+Order "1" -- "0..*" Menu : contains
+@enduml
