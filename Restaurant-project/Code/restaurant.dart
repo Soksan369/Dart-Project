@@ -1,11 +1,10 @@
-enum MenuItem {
-  Pizza,
-  Burger,
-  Pasta,
-  FrenchFries,
-  Salad,
-  Drink
+class MenuItem {
+  String name;
+  double price;
+
+  MenuItem(this.name, this.price);
 }
+
 class Customer {
   String customerID;
   String name;
@@ -15,7 +14,6 @@ class Customer {
 
   void placeOrder(Order order) {
     // Implementation for placing an order
-    
   }
 
   void reserveTable(TableReservation reservation) {
@@ -60,8 +58,10 @@ class Order {
   }
 
   void calculateTotal() {
-    // Assuming each item has a fixed price for simplicity
-    totalPrice = items.length * 10.0; // Example price calculation
+    totalPrice = items.fold(0.0, (sum, item) => sum + item.price);
+  }
+  String getRecipe() {
+    return 'Order ID: $orderID, Customer: ${customer.name}, Total Price: $totalPrice';
   }
 }
 
@@ -91,16 +91,17 @@ void main() {
   // Example usage
   Customer customer = Customer('C001', 'Pen Sithol', '070-458-409');
   Menu menu = Menu();
-  menu.addItem(MenuItem.Burger);
-  menu.addItem(MenuItem.Drink);
+  menu.addItem(MenuItem('Burger', 5.0));
+  menu.addItem(MenuItem('Drink', 2.0));
 
   Order order = Order('O001', customer, 'Pending', 'Unpaid');
-  order.addItem(MenuItem.Burger);
+  order.addItem(MenuItem('Burger', 5.0));
+  order.addItem(MenuItem('Drink', 2.0));
   order.calculateTotal();
 
   TableReservation reservation = TableReservation('R001', customer, 5, DateTime.now(), false);
   reservation.reserveTable();
 
-  print('Order Total Price: ${order.totalPrice}');
+  print('Reciepe: ${order.getRecipe()}');
   print('Reservation Details: ${reservation.getReservationDetails()}');
 }

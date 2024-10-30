@@ -1,19 +1,16 @@
 @startuml
 
-enum MenuItem {
-  Pizza
-  Burger
-  Pasta
-  Salad
-  Drink
+class MenuItem {
+  -name: String
+  -price: double
 }
 
 class Customer {
   -customerID: String
   -name: String
   -contactDetails: String
-  +placeOrder(): void
-  +reserveTable(): void
+  +placeOrder(order: Order): void
+  +reserveTable(reservation: TableReservation): void
 }
 
 class Menu {
@@ -28,9 +25,11 @@ class Order {
   -customer: Customer
   -items: List<MenuItem>
   -totalPrice: double
+  -orderStatus: String
+  -paymentStatus: String
   +addItem(item: MenuItem): void
   +removeItem(item: MenuItem): void
-  +calculateTotal(): double
+  +calculateTotal(): void
 }
 
 class TableReservation {
@@ -38,6 +37,7 @@ class TableReservation {
   -customer: Customer
   -tableNumber: int
   -reservationTime: Date
+  -isReserved: boolean
   +reserveTable(): void
   +cancelReservation(): void
   +getReservationDetails(): String
