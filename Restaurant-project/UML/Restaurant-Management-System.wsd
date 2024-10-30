@@ -3,6 +3,7 @@
 class MenuItem {
   -name: String
   -price: double
+  -quantity: int
 }
 
 class Customer {
@@ -30,6 +31,7 @@ class Order {
   +addItem(item: MenuItem): void
   +removeItem(item: MenuItem): void
   +calculateTotal(): void
+  +getRecipe(): String
 }
 
 class TableReservation {
